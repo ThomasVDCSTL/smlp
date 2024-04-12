@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->uuid()->primary();
+            $table->string('username');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->integer('phone_number')->nullable();
+            $table->string('adress')->nullable();
             $table->string('password');
+            $table->boolean('artisan')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -32,6 +34,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
+            $table->boolean('artisan');
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
